@@ -26,8 +26,7 @@
 
 ### Скриншоты приложения 
 
-![1](https://user-images.githubusercontent.com/60889423/121211769-6e336680-c885-11eb-8e84-7926b6cdaa61.jpg)
-<img src="https://user-images.githubusercontent.com/60889423/121211769-6e336680-c885-11eb-8e84-7926b6cdaa61.jpg width="48">
+<img src="https://user-images.githubusercontent.com/60889423/121211769-6e336680-c885-11eb-8e84-7926b6cdaa61.jpg" width="100" height="100">
 
 ![2](https://user-images.githubusercontent.com/60889423/121211794-71c6ed80-c885-11eb-8244-0b924467946f.jpg)
 
