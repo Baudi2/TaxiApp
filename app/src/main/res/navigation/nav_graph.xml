@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragmentMainNumber">
+
+    <fragment
+        android:id="@+id/fragmentMainNumber"
+        android:name="ru.startandroid.develop.pulttaxi.view.FragmentMainNumber"
+        android:label="fragment_main_number"
+        tools:layout="@layout/fragment_main_number" >
+        <action
+            android:id="@+id/action_fragmentMainNumber_to_fragmentPinCode"
+            app:destination="@id/fragmentPinCode" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentPinCode"
+        android:name="ru.startandroid.develop.pulttaxi.view.FragmentPinCode"
+        android:label="fragment_pin_code"
+        tools:layout="@layout/fragment_pin_code" >
+        <argument
+            android:name="phone_number"
+            app:argType="string" />
+    </fragment>
+</navigation>

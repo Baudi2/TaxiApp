@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Pult Taxi</string>
+    <string name="register_description">Ознакомьтесь с договором-оферты. Регистрируясь или авторизуясь, вы принимаете его условия</string>
+    <string name="continue_button">Продолжить</string>
+    <string name="number_begining">+7</string>
+    <string name="enter_phone_number">Введите номер вашего телефона</string>
+    <string name="enter_code_from_sms">Введите код из СМС</string>
+</resources>
