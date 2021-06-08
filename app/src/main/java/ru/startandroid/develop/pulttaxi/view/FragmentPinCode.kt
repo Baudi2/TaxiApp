@@ -20,11 +20,16 @@ class FragmentPinCode : Fragment(R.layout.fragment_pin_code) {
     private lateinit var binding: FragmentPinCodeBinding
     private val viewModel by viewModels<FragmentPinCodeViewModel>()
     private val args: FragmentPinCodeArgs by navArgs()
+    private var phoneNumber = ""
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPinCodeBinding.bind(view)
+
+        viewModel.startCounting()
+
+        phoneNumber = "7${args.phoneNumber}"
 
         viewModel.second.observe(viewLifecycleOwner) {
             binding.textViewResendCode.text =
@@ -38,19 +43,43 @@ class FragmentPinCode : Fragment(R.layout.fragment_pin_code) {
                 }
             }
         }
+
+        binding.buttonReady.visibility = View.GONE
     }
 
     override fun onStart() {
         super.onStart()
-        viewModel.startCounting()
         controlFocus()
-        val number = "7${args.phoneNumber}"
-        viewModel.requestCode(number.toLong())
+        viewModel.requestCode(phoneNumber.toLong())
+    }
+
+    private fun postUser() {
+        val password = "${binding.codeEditText1.text}${binding.codeEditText2.text}${binding.codeEditText3.text}${binding.codeEdtText4.text}"
+        viewModel.postUser(phoneNumber.toLong(), password.toInt())
+    }
+
+    private fun showButton() {
+        with(binding) {
+            val e1 = codeEditText1.text.toString()
+            val e2 = codeEditText2.text.toString()
+            val e3 = codeEditText3.text.toString()
+            val e4 = codeEdtText4.text.toString()
+
+            if (e1.isNotEmpty() && e2.isNotEmpty() && e3.isNotEmpty() && e4.isNotEmpty()) {
+                binding.buttonReady.visibility = View.VISIBLE
+                binding.buttonReady.setOnClickListener {
+                    postUser()
+                }
+            } else {
+                binding.buttonReady.visibility = View.GONE
+            }
+        }
     }
 
     private fun resentCode() {
         binding.textViewResendCode.visibility = View.GONE
         Toast.makeText(requireContext(), "Код был отправлен повторно", Toast.LENGTH_SHORT).show()
+        viewModel.requestCode(phoneNumber.toLong())
     }
 
     private fun controlFocus() {
@@ -58,6 +87,7 @@ class FragmentPinCode : Fragment(R.layout.fragment_pin_code) {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (binding.codeEditText1.text.isNotEmpty()) {
                     binding.codeEditText2.requestFocus()
+                    showButton()
                 }
             }
 
@@ -69,6 +99,7 @@ class FragmentPinCode : Fragment(R.layout.fragment_pin_code) {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (binding.codeEditText2.text.isNotEmpty()) {
                     binding.codeEditText3.requestFocus()
+                    showButton()
                 } else {
                     binding.codeEditText1.requestFocus()
                 }
@@ -82,6 +113,7 @@ class FragmentPinCode : Fragment(R.layout.fragment_pin_code) {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (binding.codeEditText3.text.isNotEmpty()) {
                     binding.codeEdtText4.requestFocus()
+                    showButton()
                 } else {
                     binding.codeEditText2.requestFocus()
                 }
@@ -95,6 +127,9 @@ class FragmentPinCode : Fragment(R.layout.fragment_pin_code) {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (binding.codeEdtText4.text.isEmpty()) {
                     binding.codeEditText3.requestFocus()
+                }
+                if (binding.codeEdtText4.text.isNotEmpty()) {
+                    showButton()
                 }
             }
 

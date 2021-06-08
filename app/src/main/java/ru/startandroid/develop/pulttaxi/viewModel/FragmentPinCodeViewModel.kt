@@ -47,4 +47,16 @@ class FragmentPinCodeViewModel @Inject constructor(
             taxiApi.getVerificationPin(phoneNumber)
         }
     }
+
+    fun postUser(phoneNumber: Long, password: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            taxiApi.authenticateClient(phoneNumber, password)
+        }
+    }
+
+    fun getUserData(token: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            taxiApi.clientInfo(token)
+        }
+    }
 }

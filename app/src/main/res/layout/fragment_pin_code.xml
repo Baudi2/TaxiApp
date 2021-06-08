@@ -124,4 +124,20 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Повторно отправить СМС с кодом можно будет через 15 секунд" />
 
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_ready"
+        android:layout_width="355dp"
+        android:text="@string/ready_button"
+        android:textSize="18sp"
+        android:fontFamily="@font/roboto"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:layout_height="57dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_blue_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
