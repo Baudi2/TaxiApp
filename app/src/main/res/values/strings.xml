@@ -6,4 +6,8 @@
     <string name="enter_phone_number">Введите номер вашего телефона</string>
     <string name="enter_code_from_sms">Введите код из СМС</string>
     <string name="ready_button">Готово</string>
+    <string name="your_data">Ваши данные:</string>
+    <string name="user_name_dialo">Имя пользователя:</string>
+    <string name="your_id_dialog">Ваш id:</string>
+    <string name="your_email">Ваша почта:</string>
 </resources>

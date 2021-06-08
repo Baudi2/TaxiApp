@@ -10,11 +10,12 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.startandroid.develop.pulttaxi.model.api.TaxiApi
+import ru.startandroid.develop.pulttaxi.model.data.UserData
 import javax.inject.Inject
 
 @HiltViewModel
 class FragmentPinCodeViewModel @Inject constructor(
-    val taxiApi: TaxiApi
+    private val taxiApi: TaxiApi
 ) : ViewModel() {
     private val _seconds = MutableLiveData<Int>()
     val second: LiveData<Int>
@@ -23,6 +24,12 @@ class FragmentPinCodeViewModel @Inject constructor(
     private val _clickable = MutableLiveData<Boolean>()
     val clickable: LiveData<Boolean>
         get() = _clickable
+
+    private val _userData = MutableLiveData<UserData?>().apply {
+        value = null
+    }
+    val userData: LiveData<UserData?>
+        get() = _userData
 
     fun startCounting() {
         _seconds.value = 15
@@ -50,13 +57,17 @@ class FragmentPinCodeViewModel @Inject constructor(
 
     fun postUser(phoneNumber: Long, password: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            taxiApi.authenticateClient(phoneNumber, password)
+            val resp = taxiApi.authenticateClient(phoneNumber, password)
+            getUserData(resp.token)
         }
     }
 
-    fun getUserData(token: String) {
+    private fun getUserData(token: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            taxiApi.clientInfo(token)
+            val resp = taxiApi.clientInfo(token)
+            withContext(Dispatchers.Main) {
+                _userData.value = resp
+            }
         }
     }
 }

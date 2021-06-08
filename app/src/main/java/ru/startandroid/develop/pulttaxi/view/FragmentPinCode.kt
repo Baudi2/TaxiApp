@@ -1,6 +1,7 @@
 package ru.startandroid.develop.pulttaxi.view
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -21,6 +22,7 @@ class FragmentPinCode : Fragment(R.layout.fragment_pin_code) {
     private val viewModel by viewModels<FragmentPinCodeViewModel>()
     private val args: FragmentPinCodeArgs by navArgs()
     private var phoneNumber = ""
+    private lateinit var dialog: Dialog
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,6 +46,14 @@ class FragmentPinCode : Fragment(R.layout.fragment_pin_code) {
             }
         }
 
+        viewModel.userData.observe(viewLifecycleOwner) {
+            if (it != null) {
+                dialog =
+                    UserInfoDialog.userInfoDialog(requireContext(), it.name, it.id, it.phoneNumber)
+                dialog.show()
+            }
+        }
+
         binding.buttonReady.visibility = View.GONE
     }
 
@@ -54,7 +64,8 @@ class FragmentPinCode : Fragment(R.layout.fragment_pin_code) {
     }
 
     private fun postUser() {
-        val password = "${binding.codeEditText1.text}${binding.codeEditText2.text}${binding.codeEditText3.text}${binding.codeEdtText4.text}"
+        val password =
+            "${binding.codeEditText1.text}${binding.codeEditText2.text}${binding.codeEditText3.text}${binding.codeEdtText4.text}"
         viewModel.postUser(phoneNumber.toLong(), password.toInt())
     }
 

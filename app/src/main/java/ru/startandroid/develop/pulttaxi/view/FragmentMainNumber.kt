@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.startandroid.develop.pulttaxi.R
@@ -20,10 +19,10 @@ class FragmentMainNumber : Fragment(R.layout.fragment_main_number) {
 
         binding.editTextNumber.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (binding.editTextNumber.text.isNotEmpty()) {
+                if (binding.editTextNumber.text!!.isNotEmpty()) {
                     binding.textViewHint.visibility = View.INVISIBLE
                 }
-                if (binding.editTextNumber.text.isEmpty()) {
+                if (binding.editTextNumber.text!!.isEmpty()) {
                     binding.textViewHint.visibility = View.VISIBLE
                 }
             }
@@ -39,7 +38,7 @@ class FragmentMainNumber : Fragment(R.layout.fragment_main_number) {
 
     private fun navigateToPin() {
         val action =
-            FragmentMainNumberDirections.actionFragmentMainNumberToFragmentPinCode(binding.editTextNumber.text.toString())
+            FragmentMainNumberDirections.actionFragmentMainNumberToFragmentPinCode(binding.editTextNumber.unMasked)
         findNavController().navigate(action)
     }
 }

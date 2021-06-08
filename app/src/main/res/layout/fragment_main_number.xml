@@ -44,7 +44,7 @@
         app:layout_constraintStart_toStartOf="@+id/edit_text_number"
         app:layout_constraintTop_toTopOf="@+id/edit_text_number" />
 
-    <EditText
+    <com.santalu.maskara.widget.MaskEditText
         android:id="@+id/edit_text_number"
         android:layout_width="176dp"
         android:layout_height="29dp"
@@ -58,6 +58,7 @@
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="24sp"
+        app:mask="___ ___-__-__"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

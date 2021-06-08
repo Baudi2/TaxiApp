@@ -73,4 +73,7 @@ dependencies {
 
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
+
+    // Edit text mask
+    implementation 'com.github.santalu:maskara:1.0.0'
 }
